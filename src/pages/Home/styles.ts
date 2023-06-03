@@ -21,6 +21,9 @@ export const HeroContainer = styled.section`
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      gap: 2rem;
+      padding-top: 3rem;
+      padding-bottom: 3rem;
     }
   }
 `
@@ -29,6 +32,12 @@ export const HeroData = styled.div`
   max-width: 588px;
   width: 55%;
   flex-basis: 1;
+
+  @media (max-width: 900px) {
+    & {
+      width: 100%;
+    }
+  }
 
   h1 {
     margin-bottom: 1rem;
@@ -57,6 +66,7 @@ export const HeroData = styled.div`
         border-radius: 50%;
         color: ${(props) => props.theme.white};
         display: flex;
+        flex-shrink: 0;
         align-items: center;
         justify-content: center;
 
@@ -87,6 +97,12 @@ export const HeroImage = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
+
+  @media (max-width: 900px) {
+    & {
+      width: 100%;
+    }
+  }
 
   img {
     max-width: 100%;
