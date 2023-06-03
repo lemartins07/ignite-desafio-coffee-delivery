@@ -1,7 +1,8 @@
-import { Minus, Plus, ShoppingCartSimple } from 'phosphor-react'
+import { ShoppingCartSimple } from 'phosphor-react'
 
 import expresso from '../../assets/expresso.png'
 import { ProductListItem } from './styles'
+import { QuantityControl } from '../QuantityControl'
 
 export function ProductItem() {
   return (
@@ -20,15 +21,7 @@ export function ProductItem() {
         <span className="price">
           R$ <strong className="title-m">9,90</strong>
         </span>
-        <div className="quantityControl">
-          <button className="removeQuantity">
-            <Minus size={18} />
-          </button>
-          <span>0</span>
-          <button className="addQuantity">
-            <Plus size={18} />
-          </button>
-        </div>
+        <QuantityControl />
         <button className="addToCart">
           <ShoppingCartSimple size={20} weight="fill" />
         </button>

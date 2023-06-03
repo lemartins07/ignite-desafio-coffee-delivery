@@ -4,6 +4,7 @@ import {
   CurrencyDollar,
   MapPinLine,
   Money,
+  Trash,
 } from 'phosphor-react'
 import {
   CartContainer,
@@ -12,12 +13,20 @@ import {
   AddressForm,
   PaymentForm,
   PaymentBox,
+  OrderResume,
+  OrderItem,
+  OrderTotals,
+  BtnOrderConfirm,
 } from './styles'
+
+import expresso from '../../assets/expresso.png'
+import { QuantityControl } from '../../components/QuantityControl/index'
 
 export function Cart() {
   return (
     <CartContainer className="container">
       <form onSubmit={(e) => e.preventDefault()}>
+        <h4 className="title-xs">Complete seu pedido</h4>
         <AddressForm>
           <header>
             <MapPinLine size={24} />
@@ -73,7 +82,58 @@ export function Cart() {
         </PaymentForm>
       </form>
 
-      <CartList></CartList>
+      <CartList>
+        <h4 className="title-xs">Cafés selecionados</h4>
+        <OrderResume>
+          <ul>
+            <OrderItem>
+              <img src={expresso} alt="Express" />
+              <div className="orderItemControl">
+                <span className="itemName text-m">Expresso Tradicional</span>
+                <QuantityControl />
+                <button className="btnRemover">
+                  <Trash size={16} />
+                  Remover
+                </button>
+              </div>
+              <span className="text-m bold">R$ 9,90</span>
+            </OrderItem>
+            <OrderItem>
+              <img src={expresso} alt="Express" />
+              <div className="orderItemControl">
+                <span className="itemName text-m">Expresso Tradicional</span>
+                <QuantityControl />
+                <button className="btnRemover">
+                  <Trash size={16} />
+                  Remover
+                </button>
+              </div>
+              <span className="text-m bold">R$ 9,90</span>
+            </OrderItem>
+            <OrderItem>
+              <img src={expresso} alt="Express" />
+              <div className="orderItemControl">
+                <span className="itemName text-m">Expresso Tradicional</span>
+                <QuantityControl />
+                <button className="btnRemover">
+                  <Trash size={16} />
+                  Remover
+                </button>
+              </div>
+              <span className="text-m bold">R$ 9,90</span>
+            </OrderItem>
+          </ul>
+          <OrderTotals>
+            <span className="totalItems">Total de itens</span>
+            <span className="totalValue">R$ 29,70</span>
+            <span className="delivery">Entrega</span>
+            <span className="totalDelivery">R$ 3,50</span>
+            <span className="totalOrder text-l bold">Total</span>
+            <span className="totalOrderValue text-l bold">R$ 33,20</span>
+          </OrderTotals>
+          <BtnOrderConfirm>Confirmar Pedido</BtnOrderConfirm>
+        </OrderResume>
+      </CartList>
     </CartContainer>
   )
 }

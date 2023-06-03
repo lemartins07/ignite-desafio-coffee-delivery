@@ -31,6 +31,13 @@ export const GlobalStyle = createGlobalStyle`
     }
   }
 
+  button {
+    cursor: pointer;
+  }
+
+  button:active { 
+    transform: translateY(1px);
+  }
 
   .container {
     max-width: 70rem;
