@@ -25,7 +25,19 @@ export const GlobalStyle = createGlobalStyle`
     line-height: 1.3;
   }
 
-  /* Title/Title XL */
+  @media (max-width:  900px) {
+   html {
+      font-size: 87.5%;      
+    }
+  }
+
+
+  .container {
+    max-width: 69.375rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
   .title-xl, .title-l, .title-m {
     font-family: ${(props) => props.theme['font-display']};    
     font-weight: 800;    
