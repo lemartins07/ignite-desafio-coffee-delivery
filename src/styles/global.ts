@@ -36,6 +36,8 @@ export const GlobalStyle = createGlobalStyle`
     max-width: 69.375rem;
     margin-left: auto;
     margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
   
   .title-xl, .title-l, .title-m {

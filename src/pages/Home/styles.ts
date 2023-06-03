@@ -5,21 +5,22 @@ export const HomeContainer = styled.main`
   background: url(${backgroundImg}) no-repeat center;
   background-size: cover;
   width: 100%;
+`
 
-  & > div {
-    display: grid;
-    grid-template-columns: minmax(540px, 1fr) 1fr;
-    /* grid-template-columns: repeat(auto-fit, ); */
-    align-items: center;
-    justify-content: center;
-    width: 100%;
+export const HeroContainer = styled.section`
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  width: 100%;
 
-    padding: 6rem 1rem;
-  }
+  padding-top: 6rem;
+  padding-bottom: 6rem;
 
   @media (max-width: 900px) {
-    & > div {
-      grid-template-columns: 1fr;
+    & {
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
     }
   }
 `
@@ -27,6 +28,7 @@ export const HomeContainer = styled.main`
 export const HeroData = styled.div`
   max-width: 588px;
   width: 100%;
+  flex-basis: 1;
 
   h1 {
     margin-bottom: 1rem;
@@ -40,7 +42,7 @@ export const HeroData = styled.div`
   ul {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    row-gap: 2rem;
+    row-gap: 1rem;
     list-style: none;
     margin-bottom: 2rem;
 
@@ -84,9 +86,16 @@ export const HeroImage = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
+
   img {
     max-width: 100%;
     display: block;
+  }
+
+  @media (max-width: 900px) {
+    & {
+      justify-content: center;
+    }
   }
 `

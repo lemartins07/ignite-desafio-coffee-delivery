@@ -3,7 +3,7 @@ import styled from 'styled-components'
 export const HeaderContainer = styled.header`
   height: 104px;
   width: 100%;
-  padding: 2rem;
+  padding: 2rem 0;
 
   nav {
     display: flex;
