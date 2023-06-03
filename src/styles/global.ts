@@ -33,7 +33,7 @@ export const GlobalStyle = createGlobalStyle`
 
 
   .container {
-    max-width: 69.375rem;
+    max-width: 70rem;
     margin-left: auto;
     margin-right: auto;
     padding-left: 1rem;

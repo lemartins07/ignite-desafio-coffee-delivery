@@ -22,11 +22,11 @@ export function ProductItem() {
         </span>
         <div className="quantityControl">
           <button className="removeQuantity">
-            <Minus size={20} />
+            <Minus size={18} />
           </button>
           <span>0</span>
           <button className="addQuantity">
-            <Plus size={20} />
+            <Plus size={18} />
           </button>
         </div>
         <button className="addToCart">

@@ -48,18 +48,24 @@ export const ProductListItem = styled.div`
   .controlPainel {
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
     width: 100%;
+  }
+
+  .price {
+    display: inline-block;
+    margin-right: 1.5rem;
   }
 
   .quantityControl {
     height: 38px;
+    width: 72px;
     display: flex;
     background-color: ${(props) => props.theme['gray-400']};
     align-items: center;
     justify-content: space-between;
     padding: 0.5rem;
     border-radius: 6px;
+    margin-right: 0.5rem;
 
     button {
       width: 24px;

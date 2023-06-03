@@ -27,7 +27,7 @@ export const HeroContainer = styled.section`
 
 export const HeroData = styled.div`
   max-width: 588px;
-  width: 100%;
+  width: 55%;
   flex-basis: 1;
 
   h1 {
@@ -83,7 +83,7 @@ export const HeroData = styled.div`
 `
 
 export const HeroImage = styled.div`
-  width: 100%;
+  width: 45%;
   display: flex;
   align-items: center;
   justify-content: flex-end;
