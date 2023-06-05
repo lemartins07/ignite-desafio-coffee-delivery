@@ -4,15 +4,13 @@ export const CartContainer = styled.section`
   display: flex;
   align-items: start;
   justify-content: center;
+  width: 100%;
   gap: 2rem;
-
-  @media (max-width: 900px) {
-    flex-direction: column;
-  }
 
   form {
     max-width: 640px;
-    height: 591px;
+    width: 100%;
+    /* height: 591px; */
 
     h4 {
       margin-bottom: 1rem;
@@ -22,6 +20,10 @@ export const CartContainer = styled.section`
   @media (max-width: 900px) {
     & {
       flex-direction: column;
+
+      form {
+        max-width: 100%;
+      }
     }
   }
 `
@@ -80,8 +82,7 @@ export const FormGrid = styled.div`
     max-width: 100%;
   }
 
-  #number,
-  #complement {
+  #number {
     grid-row: 3;
   }
 
@@ -120,6 +121,31 @@ export const FormGrid = styled.div`
   #state {
     max-width: 60px;
   }
+
+  @media (max-width: 900px) {
+    & {
+      grid-template-columns: 1fr;
+
+      input {
+        max-width: 100%;
+        width: 100%;
+      }
+    }
+
+    #zipcode,
+    #street,
+    #number,
+    .complementContainer,
+    #district,
+    #city,
+    #state {
+      grid-row: initial;
+      grid-column: initial;
+    }
+    #state {
+      max-width: 100%;
+    }
+  }
 `
 
 export const PaymentForm = styled.div`
@@ -138,6 +164,13 @@ export const PaymentForm = styled.div`
 
     svg {
       color: ${(props) => props.theme['purple-500']};
+    }
+  }
+
+  @media (max-width: 900px) {
+    & {
+      display: flex;
+      flex-direction: column;
     }
   }
 `
@@ -182,6 +215,12 @@ export const PaymentBox = styled.div`
   button:active {
     transform: translateY(2px);
   }
+
+  @media (max-width: 900px) {
+    & {
+      flex-direction: column;
+    }
+  }
 `
 
 export const CartList = styled.div`
@@ -205,12 +244,17 @@ export const OrderResume = styled.div`
   ul {
     list-style: none;
   }
+
+  @media (max-width: 900px) {
+    padding: 2.5rem 1.5rem;
+  }
 `
 
 export const OrderItem = styled.li`
   display: flex;
   align-items: start;
   justify-content: space-between;
+  gap: 0.5rem;
 
   padding-bottom: 1.5rem;
   margin-bottom: 1.5rem;
