@@ -25,7 +25,7 @@ export const GlobalStyle = createGlobalStyle`
     line-height: 1.3;
   }
 
-  @media (max-width:  900px) {
+  @media (max-width:  912px) {
    html {
       font-size: 87.5%;      
     }

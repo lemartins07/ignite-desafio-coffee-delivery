@@ -16,7 +16,7 @@ export const HeroContainer = styled.section`
   padding-top: 6rem;
   padding-bottom: 6rem;
 
-  @media (max-width: 900px) {
+  @media (max-width: 912px) {
     & {
       flex-direction: column;
       justify-content: center;
@@ -33,7 +33,7 @@ export const HeroData = styled.div`
   width: 55%;
   flex-basis: 1;
 
-  @media (max-width: 900px) {
+  @media (max-width: 912px) {
     & {
       width: 100%;
     }
@@ -98,7 +98,7 @@ export const HeroImage = styled.div`
   align-items: center;
   justify-content: flex-end;
 
-  @media (max-width: 900px) {
+  @media (max-width: 912px) {
     & {
       width: 100%;
     }
@@ -109,7 +109,7 @@ export const HeroImage = styled.div`
     display: block;
   }
 
-  @media (max-width: 900px) {
+  @media (max-width: 912px) {
     & {
       justify-content: center;
     }

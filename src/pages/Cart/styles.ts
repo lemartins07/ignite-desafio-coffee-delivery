@@ -17,7 +17,7 @@ export const CartContainer = styled.section`
     }
   }
 
-  @media (max-width: 900px) {
+  @media (max-width: 912px) {
     & {
       flex-direction: column;
 
@@ -122,7 +122,7 @@ export const FormGrid = styled.div`
     max-width: 60px;
   }
 
-  @media (max-width: 900px) {
+  @media (max-width: 912px) {
     & {
       grid-template-columns: 1fr;
 
@@ -167,7 +167,7 @@ export const PaymentForm = styled.div`
     }
   }
 
-  @media (max-width: 900px) {
+  @media (max-width: 912px) {
     & {
       display: flex;
       flex-direction: column;
@@ -216,7 +216,7 @@ export const PaymentBox = styled.div`
     transform: translateY(2px);
   }
 
-  @media (max-width: 900px) {
+  @media (max-width: 912px) {
     & {
       flex-direction: column;
     }
@@ -227,7 +227,7 @@ export const CartList = styled.div`
   max-width: 448px;
   width: 100%;
 
-  @media (max-width: 900px) {
+  @media (max-width: 912px) {
     max-width: 100%;
   }
 
@@ -245,7 +245,7 @@ export const OrderResume = styled.div`
     list-style: none;
   }
 
-  @media (max-width: 900px) {
+  @media (max-width: 912px) {
     padding: 2.5rem 1.5rem;
   }
 `
