@@ -1,14 +1,24 @@
 import { Minus, Plus } from 'phosphor-react'
 import { QuantityControlContainer } from './styles'
 
-export function QuantityControl() {
+interface QuantityControlProps {
+  amount: number
+  handleIncreaseAmount: () => void
+  handleDecreaseAmount: () => void
+}
+
+export function QuantityControl({
+  handleIncreaseAmount,
+  handleDecreaseAmount,
+  amount,
+}: QuantityControlProps) {
   return (
     <QuantityControlContainer>
-      <button className="removeQuantity">
+      <button className="removeQuantity" onClick={handleDecreaseAmount}>
         <Minus size={18} />
       </button>
-      <span>0</span>
-      <button className="addQuantity">
+      <span>{amount}</span>
+      <button className="addQuantity" onClick={handleIncreaseAmount}>
         <Plus size={18} />
       </button>
     </QuantityControlContainer>

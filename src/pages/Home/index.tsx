@@ -51,7 +51,7 @@ export function Home() {
           </HeroImage>
         </HeroContainer>
       </HomeContainer>
-      <ProductList></ProductList>
+      <ProductList />
     </>
   )
 }
