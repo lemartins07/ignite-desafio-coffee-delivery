@@ -16,7 +16,9 @@ export function ProductList() {
 
   useEffect(() => {
     async function fetchData() {
-      const response = await fetch('../../src/db.json')
+      const response = await fetch(
+        'https://raw.githubusercontent.com/lemartins07/ignite-desafio-coffee-delivery/main/src/db.json',
+      )
       const data = await response.json()
 
       setProducts(data)
