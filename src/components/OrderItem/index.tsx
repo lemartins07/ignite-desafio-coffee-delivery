@@ -10,7 +10,6 @@ interface OrderItemProps {
 }
 
 export function OrderItem({ product }: OrderItemProps) {
-  const imgPath = `../../src/assets/${product.img}`
   const { addNewProduct, removeProduct } = useContext(CartContext)
 
   function handleRemoveProduct() {
@@ -30,7 +29,7 @@ export function OrderItem({ product }: OrderItemProps) {
 
   return (
     <OrderItemContainer>
-      <img src={imgPath} alt="Express" />
+      <img src={product.img} alt="Express" />
       <div className="orderItemControl">
         <span className="itemName text-m">{product.name}</span>
         <QuantityControl
