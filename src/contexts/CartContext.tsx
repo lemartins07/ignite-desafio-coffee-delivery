@@ -2,7 +2,7 @@ import { ReactNode, createContext, useReducer } from 'react'
 import { cartReducer } from '../reducers/cart/reducer'
 import { addNewProductAction } from '../reducers/cart/actions'
 
-interface Product {
+export interface Product {
   id: number
   name: string
   description: string

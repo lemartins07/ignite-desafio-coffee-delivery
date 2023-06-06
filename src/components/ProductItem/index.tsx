@@ -23,7 +23,7 @@ export function ProductItem({ product }: ProductItemProps) {
     products.map((productContext) =>
       productContext.id === product.id ? setAmount(productContext.amount) : 0,
     )
-  }, [products])
+  }, [products, product.id])
 
   function handleIncreaseAmount() {
     setAmount((state) => state + 1)

@@ -14,8 +14,7 @@ export function cartReducer(state: CartState, action: any) {
           (product) => product.id === action.payload.newProduct.id,
         )
         if (productIndex > -1) {
-          draft.products[productIndex].amount +=
-            action.payload.newProduct.amount
+          draft.products[productIndex].amount = action.payload.newProduct.amount
         } else if (action.payload.newProduct.amount > 0) {
           draft.products.push(action.payload.newProduct)
         }
