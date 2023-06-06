@@ -14,7 +14,7 @@
   "name": "Expresso Americano",
   "description": "Expresso diluído, menos intenso que o tradicional",
   "tags": [
-    "TRADICIONAL", "Gelado"
+    "TRADICIONAL"
   ],
   "price": 12.90,
   "img": "https://raw.githubusercontent.com/lemartins07/ignite-desafio-coffee-delivery/main/src/assets/americano.png"
@@ -28,5 +28,25 @@
   ],
   "price": 15.90,
   "img": "https://raw.githubusercontent.com/lemartins07/ignite-desafio-coffee-delivery/main/src/assets/cremoso.png"
+},
+{
+"id": 4,
+"name": "Expresso Gelado",
+"description": "Bebida preparada com café expresso e cubos de gelo",
+"tags": [
+  "TRADICIONAL", "Gelado"
+],
+"price": 16.90,
+"img": "https://raw.githubusercontent.com/lemartins07/ignite-desafio-coffee-delivery/main/src/assets/cremoso.png"
+},
+{
+"id": 5,
+"name": "Latte",
+"description": "Uma dose de café expresso com o dobro de leite e espuma cremosa",
+"tags": [
+  "TRADICIONAL", "Com leite"
+],
+"price": 17.90,
+"img": "https://raw.githubusercontent.com/lemartins07/ignite-desafio-coffee-delivery/main/src/assets/latte.png"
 }
 ]

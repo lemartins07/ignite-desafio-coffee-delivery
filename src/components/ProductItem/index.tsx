@@ -38,11 +38,9 @@ export function ProductItem({ product }: ProductItemProps) {
   const currencySimbol = priceFormated[0] + priceFormated[1]
   const productPrice = priceFormated.substring(3, priceFormated.length)
 
-  const imgPath = `../../src/assets/${product.img}`
-
   return (
     <ProductListItem>
-      <img src={imgPath} alt="Expresso" />
+      <img src={product.img} alt="Expresso" />
       <div className="tagContainer">
         {product.tags.map((tag: string) => (
           <span key={tag} className="tag">
