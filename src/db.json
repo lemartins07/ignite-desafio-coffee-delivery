@@ -7,7 +7,7 @@
     "TRADICIONAL"
   ],
   "price": 9.90,
-  "img": "expresso.png"
+  "img": "https://raw.githubusercontent.com/lemartins07/ignite-desafio-coffee-delivery/main/src/assets/expresso.png"
 },
   {
   "id": 2,
@@ -17,7 +17,7 @@
     "TRADICIONAL", "Gelado"
   ],
   "price": 12.90,
-  "img": "americano.png"
+  "img": "https://raw.githubusercontent.com/lemartins07/ignite-desafio-coffee-delivery/main/src/assets/americano.png"
 },
   {
   "id": 3,
@@ -27,6 +27,6 @@
     "TRADICIONAL"
   ],
   "price": 15.90,
-  "img": "cremoso.png"
+  "img": "https://raw.githubusercontent.com/lemartins07/ignite-desafio-coffee-delivery/main/src/assets/cremoso.png"
 }
 ]
