@@ -15,6 +15,7 @@ export interface Product {
 interface CartContextType {
   products: Product[]
   addNewProduct: (product: Product) => void
+  totalProducts: () => number
 }
 
 interface CartContextProviderProps {
@@ -34,11 +35,16 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
     dispatch(addNewProductAction(product))
   }
 
+  function totalProducts() {
+    return products.length
+  }
+
   return (
     <CartContext.Provider
       value={{
         products,
         addNewProduct,
+        totalProducts,
       }}
     >
       {children}
