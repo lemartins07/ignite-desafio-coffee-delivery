@@ -15,6 +15,8 @@ export const ProductListItem = styled.div`
     margin-bottom: 0.5rem;
     /* position: absolute; */
     margin-top: -2.5rem;
+    width: 120px;
+    height: 120px;
   }
 
   .tagContainer {

@@ -6,6 +6,7 @@ import { QuantityControl } from '../QuantityControl'
 import { ProductProps } from '../ProductList'
 import { useContext, useEffect, useState } from 'react'
 import { CartContext } from '../../contexts/CartContext'
+import { priceFormater } from '../../util'
 
 interface ProductItemProps {
   product: ProductProps
@@ -14,10 +15,6 @@ interface ProductItemProps {
 export function ProductItem({ product }: ProductItemProps) {
   const { addNewProduct, products } = useContext(CartContext)
   const [amount, setAmount] = useState(0)
-  const priceFormater = new Intl.NumberFormat('pt-BR', {
-    style: 'currency',
-    currency: 'BRL',
-  })
 
   useEffect(() => {
     products.map((productContext) =>
@@ -37,7 +34,10 @@ export function ProductItem({ product }: ProductItemProps) {
     addNewProduct({ ...product, amount })
   }
 
-  const priceFormated = priceFormater.format(product.price).split(' ')
+  const priceFormated = priceFormater.format(product.price)
+  const currencySimbol = priceFormated[0] + priceFormated[1]
+  const productPrice = priceFormated.substring(3, priceFormated.length)
+
   const imgPath = `../../src/assets/${product.img}`
 
   return (
@@ -54,8 +54,7 @@ export function ProductItem({ product }: ProductItemProps) {
       <p className="productDescription">{product.description}</p>
       <div className="controlPainel">
         <span className="price">
-          {priceFormated[0]}
-          <strong className="title-m">{priceFormated[1]}</strong>
+          {currencySimbol} <strong className="title-m">{productPrice}</strong>
         </span>
         <QuantityControl
           handleIncreaseAmount={handleIncreaseAmount}

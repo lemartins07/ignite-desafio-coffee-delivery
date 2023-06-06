@@ -4,7 +4,6 @@ import {
   CurrencyDollar,
   MapPinLine,
   Money,
-  Trash,
 } from 'phosphor-react'
 import {
   CartContainer,
@@ -14,15 +13,16 @@ import {
   PaymentForm,
   PaymentBox,
   OrderResume,
-  OrderItem,
   OrderTotals,
   BtnOrderConfirm,
 } from './styles'
-
-import expresso from '../../assets/expresso.png'
-import { QuantityControl } from '../../components/QuantityControl/index'
+import { useContext } from 'react'
+import { CartContext } from '../../contexts/CartContext'
+import { OrderItem } from '../../components/OrderItem'
 
 export function Cart() {
+  const { products } = useContext(CartContext)
+
   return (
     <CartContainer className="container">
       <form onSubmit={(e) => e.preventDefault()}>
@@ -86,42 +86,10 @@ export function Cart() {
         <h4 className="title-xs">Cafés selecionados</h4>
         <OrderResume>
           <ul>
-            <OrderItem>
-              <img src={expresso} alt="Express" />
-              <div className="orderItemControl">
-                <span className="itemName text-m">Expresso Tradicional</span>
-                <QuantityControl />
-                <button className="btnRemover">
-                  <Trash size={16} />
-                  Remover
-                </button>
-              </div>
-              <span className="text-m bold">R$ 9,90</span>
-            </OrderItem>
-            <OrderItem>
-              <img src={expresso} alt="Express" />
-              <div className="orderItemControl">
-                <span className="itemName text-m">Expresso Tradicional</span>
-                <QuantityControl />
-                <button className="btnRemover">
-                  <Trash size={16} />
-                  Remover
-                </button>
-              </div>
-              <span className="text-m bold">R$ 9,90</span>
-            </OrderItem>
-            <OrderItem>
-              <img src={expresso} alt="Express" />
-              <div className="orderItemControl">
-                <span className="itemName text-m">Expresso Tradicional</span>
-                <QuantityControl />
-                <button className="btnRemover">
-                  <Trash size={16} />
-                  Remover
-                </button>
-              </div>
-              <span className="text-m bold">R$ 9,90</span>
-            </OrderItem>
+            {products &&
+              products.map((product) => (
+                <OrderItem key={product.id} product={product} />
+              ))}
           </ul>
           <OrderTotals>
             <span className="totalItems">Total de itens</span>

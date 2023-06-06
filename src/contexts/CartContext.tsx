@@ -1,6 +1,9 @@
 import { ReactNode, createContext, useReducer } from 'react'
 import { cartReducer } from '../reducers/cart/reducer'
-import { addNewProductAction } from '../reducers/cart/actions'
+import {
+  addNewProductAction,
+  removeProductAction,
+} from '../reducers/cart/actions'
 
 export interface Product {
   id: number
@@ -16,6 +19,7 @@ interface CartContextType {
   products: Product[]
   addNewProduct: (product: Product) => void
   totalProducts: () => number
+  removeProduct: (product: Product) => void
 }
 
 interface CartContextProviderProps {
@@ -35,6 +39,10 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
     dispatch(addNewProductAction(product))
   }
 
+  function removeProduct(product: Product) {
+    dispatch(removeProductAction(product))
+  }
+
   function totalProducts() {
     return products.length
   }
@@ -45,6 +53,7 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
         products,
         addNewProduct,
         totalProducts,
+        removeProduct,
       }}
     >
       {children}

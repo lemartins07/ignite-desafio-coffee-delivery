@@ -4,7 +4,7 @@ export enum ActionTypes {
   // eslint-disable-next-line no-unused-vars
   ADD_NEW_PRODUCT = 'ADD_NEW_PRODUCT',
   // eslint-disable-next-line no-unused-vars
-  INITIALIZE = 'INITIALIZE',
+  REMOVE_PRODUCT = 'REMOVE_PRODUCT',
 }
 
 export function addNewProductAction(newProduct: ProductProps) {
@@ -16,11 +16,11 @@ export function addNewProductAction(newProduct: ProductProps) {
   }
 }
 
-export function initializeAction(newProducts: ProductProps[]) {
+export function removeProductAction(product: ProductProps) {
   return {
-    type: ActionTypes.INITIALIZE,
+    type: ActionTypes.REMOVE_PRODUCT,
     payload: {
-      newProducts,
+      product,
     },
   }
 }

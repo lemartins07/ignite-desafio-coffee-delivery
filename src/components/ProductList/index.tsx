@@ -18,7 +18,6 @@ export function ProductList() {
     async function fetchData() {
       const response = await fetch('../../src/db.json')
       const data = await response.json()
-      console.log(data)
 
       setProducts(data)
     }

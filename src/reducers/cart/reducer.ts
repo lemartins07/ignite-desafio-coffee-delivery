@@ -19,9 +19,10 @@ export function cartReducer(state: CartState, action: any) {
           draft.products.push(action.payload.newProduct)
         }
       })
-    case ActionTypes.INITIALIZE:
+    case ActionTypes.REMOVE_PRODUCT:
       return produce(state, (draft) => {
-        draft.products = action.payload.newProducts
+        const productIndex = state.products.indexOf(action.payload.product)
+        draft.products.splice(productIndex, 1)
       })
     default:
       return state
