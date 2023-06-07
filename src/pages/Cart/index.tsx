@@ -16,12 +16,44 @@ import {
   OrderTotals,
   BtnOrderConfirm,
 } from './styles'
-import { useContext } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { CartContext } from '../../contexts/CartContext'
 import { OrderItem } from '../../components/OrderItem'
+import { priceFormater } from '../../util'
 
 export function Cart() {
   const { products } = useContext(CartContext)
+  const [totalItens, setTotalItens] = useState<number>(0)
+  const [totalOrder, setTotalOrder] = useState<number>(0)
+  const [totalDelivery, setTotalDelivery] = useState<number>(0)
+
+  useEffect(() => {
+    let shouldCalculate = true
+
+    function calculateTotalItens() {
+      const total = products.reduce((accumulator, product) => {
+        return accumulator + product.amount * product.price
+      }, 0)
+      setTotalItens(total)
+    }
+
+    function calculateTotalDelivery() {
+      const newTotalDelivery = totalItens > 0 ? 3.5 : 0
+      setTotalDelivery(newTotalDelivery)
+    }
+
+    function calculateTotalOrder() {
+      const newTotalOrder = totalItens + totalDelivery
+      setTotalOrder(newTotalOrder)
+    }
+
+    if (shouldCalculate) {
+      calculateTotalItens()
+      calculateTotalDelivery()
+      calculateTotalOrder()
+      shouldCalculate = false
+    }
+  }, [products, totalItens, totalDelivery])
 
   return (
     <CartContainer className="container">
@@ -93,11 +125,17 @@ export function Cart() {
           </ul>
           <OrderTotals>
             <span className="totalItems">Total de itens</span>
-            <span className="totalValue">R$ 29,70</span>
+            <span className="totalValue">
+              {priceFormater.format(totalItens)}
+            </span>
             <span className="delivery">Entrega</span>
-            <span className="totalDelivery">R$ 3,50</span>
+            <span className="totalDelivery">
+              {priceFormater.format(totalDelivery)}
+            </span>
             <span className="totalOrder text-l bold">Total</span>
-            <span className="totalOrderValue text-l bold">R$ 33,20</span>
+            <span className="totalOrderValue text-l bold">
+              {priceFormater.format(totalOrder)}
+            </span>
           </OrderTotals>
           <BtnOrderConfirm>Confirmar Pedido</BtnOrderConfirm>
         </OrderResume>
