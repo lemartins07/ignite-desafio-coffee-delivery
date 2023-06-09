@@ -35,7 +35,7 @@ export const GlobalStyle = createGlobalStyle`
     cursor: pointer;
   }
 
-  button:active { 
+  button:not(:disabled):active { 
     transform: translateY(1px);
   }
 

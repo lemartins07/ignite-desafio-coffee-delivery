@@ -1,29 +1,24 @@
 import styled from 'styled-components'
 
-export const CartContainer = styled.section`
+export const CartFormContainer = styled.form`
   display: flex;
   align-items: start;
   justify-content: center;
-  width: 100%;
   gap: 2rem;
+  width: 100%;
+  padding-bottom: 5rem;
 
-  form {
-    max-width: 640px;
+  & > div {
     width: 100%;
-    /* height: 591px; */
+  }
 
-    h4 {
-      margin-bottom: 1rem;
-    }
+  h4 {
+    margin-bottom: 1rem;
   }
 
   @media (max-width: 912px) {
     & {
       flex-direction: column;
-
-      form {
-        max-width: 100%;
-      }
     }
   }
 `
@@ -33,6 +28,7 @@ export const AddressForm = styled.div`
   border-radius: 6px;
   margin-bottom: 0.75rem;
   padding: 2.5rem;
+  position: relative;
 
   header {
     display: flex;
@@ -46,6 +42,23 @@ export const AddressForm = styled.div`
     svg {
       color: ${(props) => props.theme['yellow-700']};
     }
+  }
+
+  .loader {
+    background-color: ${(props) => props.theme['gray-200']};
+    opacity: 0.7;
+    display: none;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  .isActive {
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 `
 export const FormGrid = styled.div`
@@ -70,6 +83,10 @@ export const FormGrid = styled.div`
 
   input::placeholder {
     color: ${(props) => props.theme['gray-600']};
+  }
+
+  .error {
+    border: 1px solid #d9534f;
   }
 
   #zipcode {
@@ -148,7 +165,7 @@ export const FormGrid = styled.div`
   }
 `
 
-export const PaymentForm = styled.div`
+export const PaymentContainer = styled.div`
   background-color: ${(props) => props.theme['gray-200']};
   border-radius: 6px;
   padding: 2.5rem;
@@ -246,7 +263,7 @@ export const OrderResume = styled.div`
   }
 
   @media (max-width: 912px) {
-    padding: 2.5rem 1.5rem;
+    padding: 2.5rem;
   }
 `
 
@@ -274,4 +291,9 @@ export const BtnOrderConfirm = styled.button`
   font-size: ${(props) => props.theme['font-text-s']};
   font-weight: 700;
   text-transform: uppercase;
+
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
 `

@@ -1,3 +1,5 @@
+import { FocusEvent, useContext, useEffect, useState } from 'react'
+import InputMask from 'react-input-mask'
 import {
   Bank,
   CreditCard,
@@ -6,26 +8,72 @@ import {
   Money,
 } from 'phosphor-react'
 import {
-  CartContainer,
+  CartFormContainer,
   FormGrid,
   CartList,
   AddressForm,
-  PaymentForm,
+  PaymentContainer,
   PaymentBox,
   OrderResume,
   OrderTotals,
   BtnOrderConfirm,
 } from './styles'
-import { useContext, useEffect, useState } from 'react'
 import { CartContext } from '../../contexts/CartContext'
 import { OrderItem } from '../../components/OrderItem'
 import { priceFormater } from '../../util'
+import { useForm, SubmitHandler } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import * as zod from 'zod'
+import { fromZodError } from 'zod-validation-error'
+import { Loader } from '../../components/Loader'
+
+type PaymentMethodType = 'debit' | 'credit' | 'cash' | ''
+
+const newOrderFormValidationSchema = zod.object({
+  zipcode: zod.string().regex(/^\d{2}\d{3}[-]\d{3}$/gm),
+  street: zod.string(),
+  number: zod.string(),
+  complement: zod.string(),
+  district: zod.string(),
+  city: zod.string(),
+  state: zod.string(),
+})
+
+type CartFormData = zod.infer<typeof newOrderFormValidationSchema>
+
+interface CepApiData {
+  bairro: string
+  cep: string
+  complemento: string
+  ddd: string
+  gia: string
+  ibge: string
+  localidade: string
+  logradouro: string
+  siafi: string
+  uf: string
+  erro?: boolean
+}
 
 export function Cart() {
   const { products } = useContext(CartContext)
+  const newOrderForm = useForm<CartFormData>({
+    resolver: zodResolver(newOrderFormValidationSchema),
+  })
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setValue,
+  } = newOrderForm
   const [totalItens, setTotalItens] = useState<number>(0)
   const [totalOrder, setTotalOrder] = useState<number>(0)
   const [totalDelivery, setTotalDelivery] = useState<number>(0)
+  const [paymentMethod, setPaymentMethod] = useState<PaymentMethodType>('')
+  const [loading, setLoading] = useState(false)
+
+  const isSubmitButtonDisablad = !(products.length > 0)
+  console.log('isSubmitButtonDisablad :', isSubmitButtonDisablad)
 
   useEffect(() => {
     let shouldCalculate = true
@@ -55,11 +103,74 @@ export function Cart() {
     }
   }, [products, totalItens, totalDelivery])
 
+  const onSubmit: SubmitHandler<CartFormData> = (data) =>
+    console.log('onSubmit: ', data)
+
+  function handleSelectPaymentMethotd(method: PaymentMethodType) {
+    switch (method) {
+      case 'cash':
+        setPaymentMethod(method)
+        break
+      case 'debit':
+        setPaymentMethod(method)
+        break
+      case 'credit':
+        setPaymentMethod(method)
+        break
+      default:
+        setPaymentMethod('')
+    }
+  }
+
+  async function onBlur(e: FocusEvent<HTMLInputElement>) {
+    try {
+      const zipCode = e.target.value
+
+      if (newOrderFormValidationSchema.shape.zipcode.parse(zipCode)) {
+        setLoading(true)
+        const response = await fetch(
+          `https://viacep.com.br/ws/${zipCode}/json/`,
+          {
+            mode: 'cors',
+            headers: {
+              'Content-Type': 'application/json',
+              'Access-Control-Allow-Origin': '*',
+            },
+          },
+        )
+        const data: CepApiData = await response.json()
+        console.log(data)
+
+        if (data.erro) {
+          console.log('Cep Invalido')
+          return
+        }
+        setValue('street', data.logradouro)
+        setValue('district', data.bairro)
+        setValue('city', data.localidade)
+        setValue('state', data.uf)
+        setLoading(false)
+      }
+    } catch (err: any) {
+      // console.log(err)
+      const validationError = fromZodError(err)
+
+      console.log(validationError)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  // console.log('errors: ', errors)
+
   return (
-    <CartContainer className="container">
-      <form onSubmit={(e) => e.preventDefault()}>
+    <CartFormContainer className="container" onSubmit={handleSubmit(onSubmit)}>
+      <div>
         <h4 className="title-xs">Complete seu pedido</h4>
         <AddressForm>
+          <span className={`loader ${loading ? 'isActive' : ''}`}>
+            <Loader />
+          </span>
           <header>
             <MapPinLine size={24} />
             <div>
@@ -70,24 +181,36 @@ export function Cart() {
             </div>
           </header>
           <FormGrid>
-            <input name="zipcode" id="zipcode" placeholder="CEP" />
-            <input name="street" id="street" placeholder="Rua" />
-            <input name="number" id="number" placeholder="Número" />
+            <InputMask
+              mask="99999-999"
+              {...register('zipcode')}
+              id="zipcode"
+              placeholder="CEP"
+              onBlur={onBlur}
+              className={errors.zipcode ? 'error' : ''}
+            />
+
+            <input {...register('street')} id="street" placeholder="Rua" />
+            <input {...register('number')} id="number" placeholder="Número" />
             <div className="complementContainer">
               <input
-                name="complement"
+                {...register('complement')}
                 id="complement"
                 placeholder="Complemento"
               />
               <span>Opcional</span>
             </div>
-            <input name="district" id="district" placeholder="Bairro" />
-            <input name="city" id="city" placeholder="Cidade" />
-            <input name="state" id="state" placeholder="UF" />
+            <input
+              {...register('district')}
+              id="district"
+              placeholder="Bairro"
+            />
+            <input {...register('city')} id="city" placeholder="Cidade" />
+            <input {...register('state')} id="state" placeholder="UF" />
           </FormGrid>
         </AddressForm>
 
-        <PaymentForm>
+        <PaymentContainer style={{ display: 'none' }}>
           <header>
             <CurrencyDollar size={24} />
             <div>
@@ -98,21 +221,33 @@ export function Cart() {
             </div>
           </header>
           <PaymentBox>
-            <button className="active">
+            <button
+              type="button"
+              className={paymentMethod === 'credit' ? 'active' : ''}
+              onClick={() => handleSelectPaymentMethotd('credit')}
+            >
               <CreditCard size={16} />
               Cartão de crédito
             </button>
-            <button>
+            <button
+              type="button"
+              className={paymentMethod === 'debit' ? 'active' : ''}
+              onClick={() => handleSelectPaymentMethotd('debit')}
+            >
               <Bank size={16} />
               Cartão de débito
             </button>
-            <button>
+            <button
+              type="button"
+              className={paymentMethod === 'cash' ? 'active' : ''}
+              onClick={() => handleSelectPaymentMethotd('cash')}
+            >
               <Money size={16} />
               Dinheiro
             </button>
           </PaymentBox>
-        </PaymentForm>
-      </form>
+        </PaymentContainer>
+      </div>
 
       <CartList>
         <h4 className="title-xs">Cafés selecionados</h4>
@@ -137,9 +272,11 @@ export function Cart() {
               {priceFormater.format(totalOrder)}
             </span>
           </OrderTotals>
-          <BtnOrderConfirm>Confirmar Pedido</BtnOrderConfirm>
+          <BtnOrderConfirm disabled={isSubmitButtonDisablad}>
+            Confirmar Pedido
+          </BtnOrderConfirm>
         </OrderResume>
       </CartList>
-    </CartContainer>
+    </CartFormContainer>
   )
 }
