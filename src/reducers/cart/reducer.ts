@@ -24,6 +24,10 @@ export function cartReducer(state: CartState, action: any) {
         const productIndex = state.products.indexOf(action.payload.product)
         draft.products.splice(productIndex, 1)
       })
+    case ActionTypes.CLEAR_PRODUCTS:
+      return produce(state, (draft) => {
+        draft.products = []
+      })
     default:
       return state
   }

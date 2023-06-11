@@ -14,11 +14,19 @@ export function QuantityControl({
 }: QuantityControlProps) {
   return (
     <QuantityControlContainer>
-      <button className="removeQuantity" onClick={handleDecreaseAmount}>
+      <button
+        type="button"
+        className="removeQuantity"
+        onClick={handleDecreaseAmount}
+      >
         <Minus size={18} />
       </button>
       <span>{amount}</span>
-      <button className="addQuantity" onClick={handleIncreaseAmount}>
+      <button
+        type="button"
+        className="addQuantity"
+        onClick={handleIncreaseAmount}
+      >
         <Plus size={18} />
       </button>
     </QuantityControlContainer>

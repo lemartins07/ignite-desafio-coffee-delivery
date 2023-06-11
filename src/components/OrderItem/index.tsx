@@ -37,7 +37,11 @@ export function OrderItem({ product }: OrderItemProps) {
           handleIncreaseAmount={handleIncreaseAmount}
           handleDecreaseAmount={handleDecreaseAmount}
         />
-        <button className="btnRemover" onClick={handleRemoveProduct}>
+        <button
+          type="button"
+          className="btnRemover"
+          onClick={handleRemoveProduct}
+        >
           <Trash size={16} />
           Remover
         </button>

@@ -26,20 +26,26 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import * as zod from 'zod'
 import { fromZodError } from 'zod-validation-error'
 import { Loader } from '../../components/Loader'
+import { OrderContext } from '../../contexts/OrderContext'
+import { useNavigate } from 'react-router-dom'
 
 type PaymentMethodType = 'debit' | 'credit' | 'cash' | ''
 
 const newOrderFormValidationSchema = zod.object({
-  zipcode: zod.string().regex(/^\d{2}\d{3}[-]\d{3}$/gm),
-  street: zod.string(),
-  number: zod.string(),
+  zipcode: zod
+    .string()
+    .regex(/^\d{2}\d{3}[-]\d{3}$/gm)
+    .min(9),
+  street: zod.string().min(1),
+  number: zod.string().min(1),
   complement: zod.string(),
-  district: zod.string(),
-  city: zod.string(),
-  state: zod.string(),
+  district: zod.string().min(1),
+  city: zod.string().min(1),
+  state: zod.string().min(2).max(2),
+  paymentMethod: zod.enum(['debit', 'credit', 'cash']),
 })
 
-type CartFormData = zod.infer<typeof newOrderFormValidationSchema>
+export type CartFormData = zod.infer<typeof newOrderFormValidationSchema>
 
 interface CepApiData {
   bairro: string
@@ -56,7 +62,8 @@ interface CepApiData {
 }
 
 export function Cart() {
-  const { products } = useContext(CartContext)
+  const { products, clearProducts } = useContext(CartContext)
+  const { createNewOrder } = useContext(OrderContext)
   const newOrderForm = useForm<CartFormData>({
     resolver: zodResolver(newOrderFormValidationSchema),
   })
@@ -71,9 +78,9 @@ export function Cart() {
   const [totalDelivery, setTotalDelivery] = useState<number>(0)
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethodType>('')
   const [loading, setLoading] = useState(false)
+  const navigate = useNavigate()
 
   const isSubmitButtonDisablad = !(products.length > 0)
-  console.log('isSubmitButtonDisablad :', isSubmitButtonDisablad)
 
   useEffect(() => {
     let shouldCalculate = true
@@ -103,19 +110,26 @@ export function Cart() {
     }
   }, [products, totalItens, totalDelivery])
 
-  const onSubmit: SubmitHandler<CartFormData> = (data) =>
-    console.log('onSubmit: ', data)
+  const onSubmit: SubmitHandler<CartFormData> = (data) => {
+    const newOrder = {
+      formData: data,
+      products,
+    }
+    createNewOrder(newOrder)
+    clearProducts()
+    navigate('/success', { replace: true })
+  }
 
   function handleSelectPaymentMethotd(method: PaymentMethodType) {
     switch (method) {
       case 'cash':
-        setPaymentMethod(method)
-        break
       case 'debit':
-        setPaymentMethod(method)
-        break
       case 'credit':
-        setPaymentMethod(method)
+        if (newOrderFormValidationSchema.shape.paymentMethod.parse(method)) {
+          delete errors.paymentMethod
+          setPaymentMethod(method)
+          setValue('paymentMethod', method)
+        }
         break
       default:
         setPaymentMethod('')
@@ -139,7 +153,6 @@ export function Cart() {
           },
         )
         const data: CepApiData = await response.json()
-        console.log(data)
 
         if (data.erro) {
           console.log('Cep Invalido')
@@ -149,19 +162,19 @@ export function Cart() {
         setValue('district', data.bairro)
         setValue('city', data.localidade)
         setValue('state', data.uf)
+        delete errors.street
+        delete errors.district
+        delete errors.city
+        delete errors.state
         setLoading(false)
       }
     } catch (err: any) {
-      // console.log(err)
       const validationError = fromZodError(err)
-
       console.log(validationError)
     } finally {
       setLoading(false)
     }
   }
-
-  // console.log('errors: ', errors)
 
   return (
     <CartFormContainer className="container" onSubmit={handleSubmit(onSubmit)}>
@@ -190,8 +203,18 @@ export function Cart() {
               className={errors.zipcode ? 'error' : ''}
             />
 
-            <input {...register('street')} id="street" placeholder="Rua" />
-            <input {...register('number')} id="number" placeholder="Número" />
+            <input
+              {...register('street')}
+              id="street"
+              placeholder="Rua"
+              className={errors.street ? 'error' : ''}
+            />
+            <input
+              {...register('number')}
+              id="number"
+              placeholder="Número"
+              className={errors.number ? 'error' : ''}
+            />
             <div className="complementContainer">
               <input
                 {...register('complement')}
@@ -204,13 +227,24 @@ export function Cart() {
               {...register('district')}
               id="district"
               placeholder="Bairro"
+              className={errors.district ? 'error' : ''}
             />
-            <input {...register('city')} id="city" placeholder="Cidade" />
-            <input {...register('state')} id="state" placeholder="UF" />
+            <input
+              {...register('city')}
+              id="city"
+              placeholder="Cidade"
+              className={errors.city ? 'error' : ''}
+            />
+            <input
+              {...register('state')}
+              id="state"
+              placeholder="UF"
+              className={errors.state ? 'error' : ''}
+            />
           </FormGrid>
         </AddressForm>
 
-        <PaymentContainer style={{ display: 'none' }}>
+        <PaymentContainer>
           <header>
             <CurrencyDollar size={24} />
             <div>
@@ -220,7 +254,8 @@ export function Cart() {
               </p>
             </div>
           </header>
-          <PaymentBox>
+          <PaymentBox className={errors.paymentMethod ? 'error' : ''}>
+            <input {...register('paymentMethod')} type="hidden" />
             <button
               type="button"
               className={paymentMethod === 'credit' ? 'active' : ''}

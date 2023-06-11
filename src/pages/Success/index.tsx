@@ -2,8 +2,19 @@ import { CurrencyDollar, MapPin, Timer } from 'phosphor-react'
 import { SuccessContainer } from './styles'
 
 import biker from '../../assets/biker.svg'
+import { useContext } from 'react'
+import { OrderContext } from '../../contexts/OrderContext'
+import { formatPaymentMethod } from '../../util'
 
 export function Success() {
+  const { order } = useContext(OrderContext)
+
+  const { street, number, city, state, district, paymentMethod } =
+    order.formData
+  const complement = order.formData.complement
+    ? ' - ' + order.formData.complement
+    : ''
+
   return (
     <SuccessContainer className="container">
       <div className="order">
@@ -20,10 +31,12 @@ export function Success() {
                 </div>
                 <div className="data__item-data">
                   <span className="data__data-address-1">
-                    Entrega em Rua João Daniel Martinelli, 102
+                    Entrega em
+                    <strong>{` ${street}, ${number} ${complement} `}</strong>
+                    <br />
                   </span>
                   <span className="data__data-address-2">
-                    Farrapos - Porto Alegre, RS
+                    {district} - {city}, {state}
                   </span>
                 </div>
               </li>
@@ -42,7 +55,7 @@ export function Success() {
                 </div>
                 <div className="data__item-data">
                   Pagamento na entrega <br />
-                  Cartão de Crédito
+                  {formatPaymentMethod(paymentMethod)}
                 </div>
               </li>
             </ul>

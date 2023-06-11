@@ -222,15 +222,19 @@ export const PaymentBox = styled.div`
     svg {
       color: ${(props) => props.theme['purple-500']};
     }
+
+    &.active {
+      background-color: ${(props) => props.theme['purple-100']};
+      border: 1px solid ${(props) => props.theme['purple-500']};
+    }
+
+    &:active {
+      transform: translateY(2px);
+    }
   }
 
-  .active {
-    background-color: ${(props) => props.theme['purple-100']};
-    border: 1px solid ${(props) => props.theme['purple-500']};
-  }
-
-  button:active {
-    transform: translateY(2px);
+  &.error {
+    border: 1px solid #d9534f;
   }
 
   @media (max-width: 912px) {

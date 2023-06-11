@@ -5,6 +5,8 @@ export enum ActionTypes {
   ADD_NEW_PRODUCT = 'ADD_NEW_PRODUCT',
   // eslint-disable-next-line no-unused-vars
   REMOVE_PRODUCT = 'REMOVE_PRODUCT',
+  // eslint-disable-next-line no-unused-vars
+  CLEAR_PRODUCTS = 'CLEAR_PRODUCTS',
 }
 
 export function addNewProductAction(newProduct: ProductProps) {
@@ -22,5 +24,11 @@ export function removeProductAction(product: ProductProps) {
     payload: {
       product,
     },
+  }
+}
+
+export function clearProductstAction() {
+  return {
+    type: ActionTypes.CLEAR_PRODUCTS,
   }
 }
