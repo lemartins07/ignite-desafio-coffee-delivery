@@ -71,5 +71,10 @@ export const ProductListItem = styled.div`
     svg {
       color: #fff;
     }
+
+    &:disabled {
+      background-color: ${(props) => props.theme['purple-100']};
+      cursor: not-allowed;
+    }
   }
 `

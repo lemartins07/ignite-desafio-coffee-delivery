@@ -16,6 +16,8 @@ export function ProductItem({ product }: ProductItemProps) {
   const { addNewProduct, products } = useContext(CartContext)
   const [amount, setAmount] = useState(0)
 
+  const isDisabled = amount > 0
+
   useEffect(() => {
     products.map((productContext) =>
       productContext.id === product.id ? setAmount(productContext.amount) : 0,
@@ -59,7 +61,11 @@ export function ProductItem({ product }: ProductItemProps) {
           handleDecreaseAmount={handleDecreaseAmount}
           amount={amount}
         />
-        <button className="addToCart" onClick={handleAddNewProduct}>
+        <button
+          className="addToCart"
+          onClick={handleAddNewProduct}
+          disabled={!isDisabled}
+        >
           <ShoppingCartSimple size={20} weight="fill" />
         </button>
       </div>
