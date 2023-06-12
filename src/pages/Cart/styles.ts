@@ -6,6 +6,7 @@ export const CartFormContainer = styled.form`
   justify-content: center;
   gap: 2rem;
   width: 100%;
+  padding-top: 10rem;
   padding-bottom: 5rem;
 
   & > div {

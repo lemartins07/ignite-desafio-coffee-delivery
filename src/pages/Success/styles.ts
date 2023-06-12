@@ -4,12 +4,11 @@ export const SuccessContainer = styled.section`
   display: flex;
   align-items: start;
   justify-content: space-evenly;
-  padding-top: 6rem;
+  padding-top: 10rem;
 
   @media (max-width: 912px) {
     & {
       flex-direction: column;
-      padding-top: 3rem;
     }
   }
 

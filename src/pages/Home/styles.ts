@@ -5,6 +5,7 @@ export const HomeContainer = styled.main`
   background: url(${backgroundImg}) no-repeat center;
   background-size: cover;
   width: 100%;
+  padding-top: 10rem;
 `
 
 export const HeroContainer = styled.section`

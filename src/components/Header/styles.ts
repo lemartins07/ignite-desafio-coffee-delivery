@@ -4,11 +4,18 @@ export const HeaderContainer = styled.header`
   height: 104px;
   width: 100%;
   padding: 2rem 0;
+  position: fixed;
+  z-index: 9999;
+  background-color: ${(p) => p.theme['gray-100']};
 
   nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
+  }
+
+  &.scrolled {
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
   }
 `
 
