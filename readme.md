@@ -17,17 +17,6 @@
 
 ## 💻 Projeto
 
-O Ignite Coffee Delivery é uma aplicação que emula um e-commerce focado em vendas de café. A aplicação conta com as seguintes páginas: 
-
-- Header: possui o logo e o botão do carrinho, onde demostra a quantidade de produtos que tem no carrinho.
-- Home: Página inicial onde contém a descrição do site e um banner, e a listagem dos dos cafés, onde tem o sistema para incluir os cafés no carrinho.
-- Cart: Pagína de finalização de pedido, onde possui um formulário com uma integração e muma API de consulta de CEP, onde já preenche o formulário quando é inserido um cep valido. Além disso possui validação do formulário utilizando a lib ZOD integrada na lib React Hook Form;
-- Success: Página que exibida após a confirmação do pedido.
-
-Este projeto foi o desafio do módulo "Criando SPAs" da trilha de ReactJS do curso Ignite da Rocketseat. 
-O objetivo principal foi construir uma aplicação completa, para incorpora conceitos importantes do ecossistema React aprendidos no módulo, tais como ContextAPI, useReducer, immer, styled-components entre outros...
-
-
 O Ignite Coffee Delivery é uma aplicação que simula um e-commerce especializado em vendas de café. A aplicação inclui as seguintes páginas:
 
 - Cabeçalho: exibe o logotipo e o botão do carrinho, que mostra a quantidade de produtos no carrinho.
